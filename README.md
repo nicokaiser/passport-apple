@@ -60,6 +60,8 @@ app.post('/auth/apple/callback',
   });
 ```
 
+You can find a complete example at [examples/server.js](examples/server.js).
+
 ## FAQ
 
 #### Which fields are provided in the user profile?
