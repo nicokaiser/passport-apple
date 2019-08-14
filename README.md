@@ -68,7 +68,19 @@ Also, if the User wants to, their name and email address is returned:
 { id, name: { firstName, lastName }, email } = profile;
 ```
 
-**Note that the `name` and `email` properties are only returned on the first login the user**.
+*Note that the `name` and `email` properties are only returned on the first login the user*.
+
+#### Why not just use [passport-oauth2](https://github.com/jaredhanson/passport-oauth2/)?
+
+The login flow for Sign in with Apple is similar to OAuth 2 and OpenID Connect, but there are quite some differences. The OpenID Foundation published a document about this: [How Sign In with Apple differs from OpenID Connect](https://bitbucket.org/openid/connect/src/default/How-Sign-in-with-Apple-differs-from-OpenID-Connect.md).
+
+Namely, instead of a static `client_secret`, a JWT is used, however in a non-standard way. Also, user data is submitted alongside the authentication code via HTTP POST (and only if the "form_post" response mode is used!).
+
+Apple is still working on the interfaces, as Sign in with Apple is still in beta, so it may be OIDC compliant at some point in the future.
+
+#### How does this module differ from [passport-apple](https://github.com/ananay/passport-apple/)?
+
+[passport-apple](https://github.com/ananay/passport-apple/) uses passport-oauth2 and replaces its client secret methods. This works, however it does not support retrieving user data (like name and email). In order to properly support this, you would need to basically re-write a slimmed down version of passport-oauth2, which basically is what this module provides.
 
 ## License
 
