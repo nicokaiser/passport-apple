@@ -15,7 +15,7 @@
   "main": "./lib",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec test/*.test.js test/**/*.test.js"
   },
   "author": {
     "name": "Nico Kaiser",
@@ -30,9 +30,12 @@
     "uid2": "0.0.3"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-passport-strategy": "^1.0.1",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "mocha": "^6.2.0",
     "prettier": "^1.18.2"
   }
 }
