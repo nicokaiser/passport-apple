@@ -1,5 +1,9 @@
 # Sign in with Apple strategy for Passport
 
+[![Build Status](https://travis-ci.org/nicokaiser/passport-apple.svg?branch=master)](https://travis-ci.org/nicokaiser/passport-apple)
+[![NPM version](https://badge.fury.io/js/%40nicokaiser%2Fpassport-apple.svg)](https://www.npmjs.com/package/@nicokaiser/passport-apple)
+[![Dependencies](https://david-dm.org/nicokaiser/passport-apple.svg)](https://david-dm.org/nicokaiser/passport-apple)
+
 [Passport](http://www.passportjs.org/) strategy for authenticating with [Sign in with Apple](https://developer.apple.com/sign-in-with-apple/).
 
 ## Install
