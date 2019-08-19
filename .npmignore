@@ -1,0 +1,5 @@
+examples/
+test/
+.travis.yml
+.prettierrc
+.eslintrc
