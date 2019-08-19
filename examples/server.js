@@ -20,7 +20,7 @@ passport.use(
             keyID: '1234567890',
             key: fs.readFileSync(path.join(__dirname, 'AuthKey_1234567890.p8')),
             callbackURL: '/callback',
-            scope: 'name email'
+            scope: ['name', 'email']
         },
         (accessToken, refreshToken, profile, done) => {
             const {

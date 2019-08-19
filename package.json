@@ -15,8 +15,9 @@
   "main": "./lib",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "test": "mocha --reporter spec test/*.test.js test/**/*.test.js"
+    "test": "mocha --reporter spec test/*.test.js test/**/*.test.js && eslint \"**/*.js\""
   },
+  "pre-commit": "test",
   "author": {
     "name": "Nico Kaiser",
     "email": "nico@kaiser.me",
@@ -39,7 +40,17 @@
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
     "mocha": "^6.2.0",
     "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint"
   }
 }
