@@ -29,9 +29,9 @@ The Sign in with Apple authentication strategy authenticates users using an Appl
 passport.use(new AppleStrategy({
     clientID: 'com.example.account', // Services ID
     teamID: '1234567890', // Team ID of your Apple Developer Account
-    keyID: 'ABCDEFGHIJ', // Key ID
-    key: fs.readFileSync('AuthKey_XYZ1234567.p8'),
-    scope: 'name email',
+    keyID: 'ABCDEFGHIJ', // Key ID, received from https://developer.apple.com/account/resources/authkeys/list
+    key: fs.readFileSync(path.join('path', 'to', 'AuthKey_XYZ1234567.p8')), // Private key, downloaded from https://developer.apple.com/account/resources/authkeys/list
+    scope: ['name', 'email'],
     callbackURL: 'https://example.com/auth/apple/callback'
   },
   (accessToken, refreshToken, profile, cb) => {
@@ -44,7 +44,7 @@ passport.use(new AppleStrategy({
 
 ### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'apple'` strategy, to authenticate requests.
+Use `passport.authenticate()`, specifying the `'apple'` strategy, to authenticate requests. You can pass the (required) authorization code via the `code` POST parameter.
 
 For example, as route middleware in an [Express](http://expressjs.com/) application:
 
