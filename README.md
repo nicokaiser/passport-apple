@@ -44,15 +44,16 @@ passport.use(new AppleStrategy({
 
 ### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'apple'` strategy, to authenticate requests. You can pass the (required) authorization code via the `code` POST parameter.
+Use `passport.authenticate()`, specifying the `'apple'` strategy, to authenticate requests. The authorization code is passed via the `code` POST parameter, so your endpoint callback needs to support HTTPS POST and provide the `req.body` property.
 
-For example, as route middleware in an [Express](http://expressjs.com/) application:
+For example, as route middleware in an [Express](http://expressjs.com/) application, using `express.urlencoded` to provide `req.body`:
 
 ```js
 app.get('/auth/apple',
   passport.authenticate('apple'));
 
 app.post('/auth/apple/callback',
+  express.urlencoded(),
   passport.authenticate('apple', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
