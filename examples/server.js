@@ -5,6 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const errorHandler = require('errorhandler');
+const bodyParser = require('body-parser');
 const AppleStrategy = require('@nicokaiser/passport-apple').Strategy;
 
 passport.serializeUser((user, callback) => callback(null, user));
@@ -53,7 +54,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/auth/apple', passport.authenticate('apple'));
-app.post('/auth/apple/callback', passport.authenticate('apple'), (req, res) => {
+app.post('/auth/apple/callback', bodyParser(), passport.authenticate('apple'), (req, res) => {
     res.json(req.user);
 });
 
