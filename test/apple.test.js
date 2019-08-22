@@ -2,9 +2,10 @@
 
 const chai = require('chai');
 const chaiPassport = require('chai-passport-strategy');
+const OAuth2 = require('oauth').OAuth2;
+const jwt = require('jsonwebtoken');
 
 const AppleStrategy = require('../lib/strategy');
-const OAuth2 = require('oauth').OAuth2;
 
 chai.use(chaiPassport);
 const expect = chai.expect;
@@ -162,6 +163,101 @@ describe('AppleStrategy', () => {
         it('should fail with info', function() {
             expect(info).to.not.be.undefined;
             expect(info.message).to.equal('User cancelled authorize');
+        });
+    });
+
+    describe('authorization response with user data', () => {
+        const strategy = new AppleStrategy(
+            {
+                clientID: 'CLIENT_ID',
+                teamID: 'TEAM_ID',
+                keyID: 'KEY_ID',
+                key: 'KEY'
+            },
+            (accessToken, refreshToken, profile, done) => done(null, profile)
+        );
+
+        strategy._getOAuth2Client = () => {
+            const oauth2 = new OAuth2();
+            oauth2.getOAuthAccessToken = (code, options, callback) => {
+                if (code === 'SplxlOBeZQQYbYS6WxSbIA+ALT1' && options.grant_type === 'authorization_code') {
+                    return callback(null, 'AT', 'RT', {
+                        id_token: jwt.sign(
+                            {
+                                email: 'user@example.com'
+                            },
+                            'secret',
+                            {
+                                audience: 'CLIENT_ID',
+                                issuer: 'https://appleid.apple.com',
+                                subject: 'SUBJECT',
+                                expiresIn: 3600
+                            }
+                        )
+                    });
+                }
+                return callback({
+                    statusCode: 400,
+                    data: '{"error":"invalid_grant"}'
+                });
+            };
+            return oauth2;
+        };
+
+        describe('with req.body as object', () => {
+            let user;
+
+            before(function(done) {
+                chai.passport
+                    .use(strategy)
+                    .success(u => {
+                        user = u;
+                        done();
+                    })
+                    .req(function(req) {
+                        req.body = {};
+                        req.body.user = {
+                            name: { firstName: 'John', lastName: 'Appleseed' }
+                        };
+                        req.body.code = 'SplxlOBeZQQYbYS6WxSbIA+ALT1';
+                    })
+                    .authenticate();
+            });
+
+            it('should retrieve the user', function() {
+                expect(user.id).to.equal('SUBJECT');
+                expect(user.email).to.equal('user@example.com');
+                expect(user.name.firstName).to.equal('John');
+                expect(user.name.lastName).to.equal('Appleseed');
+            });
+        });
+
+        describe('with req.body as string', () => {
+            let user;
+
+            before(function(done) {
+                chai.passport
+                    .use(strategy)
+                    .success(u => {
+                        user = u;
+                        done();
+                    })
+                    .req(function(req) {
+                        req.body = {};
+                        req.body.user = JSON.stringify({
+                            name: { firstName: 'John', lastName: 'Appleseed' }
+                        });
+                        req.body.code = 'SplxlOBeZQQYbYS6WxSbIA+ALT1';
+                    })
+                    .authenticate();
+            });
+
+            it('should retrieve the user', function() {
+                expect(user.id).to.equal('SUBJECT');
+                expect(user.email).to.equal('user@example.com');
+                expect(user.name.firstName).to.equal('John');
+                expect(user.name.lastName).to.equal('Appleseed');
+            });
         });
     });
 
