@@ -6,6 +6,8 @@
 
 [Passport](http://www.passportjs.org/) strategy for authenticating with [Sign in with Apple](https://developer.apple.com/sign-in-with-apple/).
 
+[한국어 README는 이쪽입니다！](https://github.com/nicokaiser/passport-apple/blob/master/README-ko.md)
+
 ## Install
 
     $ npm install @nicokaiser/passport-apple
