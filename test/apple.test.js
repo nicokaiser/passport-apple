@@ -28,8 +28,8 @@ describe('AppleStrategy', () => {
             });
         });
 
-        describe('without a verify callback', function() {
-            it('should throw', function() {
+        describe('without a verify callback', function () {
+            it('should throw', function () {
                 expect(() => {
                     new AppleStrategy({
                         clientID: 'CLIENT_ID',
@@ -41,8 +41,8 @@ describe('AppleStrategy', () => {
             });
         });
 
-        describe('without a clientID option', function() {
-            it('should throw', function() {
+        describe('without a clientID option', function () {
+            it('should throw', function () {
                 expect(() => {
                     new AppleStrategy(
                         {
@@ -56,8 +56,8 @@ describe('AppleStrategy', () => {
             });
         });
 
-        describe('without a teamID option', function() {
-            it('should throw', function() {
+        describe('without a teamID option', function () {
+            it('should throw', function () {
                 expect(() => {
                     new AppleStrategy(
                         {
@@ -71,8 +71,8 @@ describe('AppleStrategy', () => {
             });
         });
 
-        describe('without a keyID option', function() {
-            it('should throw', function() {
+        describe('without a keyID option', function () {
+            it('should throw', function () {
                 expect(() => {
                     new AppleStrategy(
                         {
@@ -86,8 +86,8 @@ describe('AppleStrategy', () => {
             });
         });
 
-        describe('without a key option', function() {
-            it('should throw', function() {
+        describe('without a key option', function () {
+            it('should throw', function () {
                 expect(() => {
                     new AppleStrategy(
                         {
@@ -102,7 +102,7 @@ describe('AppleStrategy', () => {
         });
     });
 
-    describe('authorization request with display parameter', function() {
+    describe('authorization request with display parameter', function () {
         const strategy = new AppleStrategy(
             {
                 clientID: 'CLIENT_ID',
@@ -115,10 +115,10 @@ describe('AppleStrategy', () => {
 
         let url;
 
-        before(function(done) {
+        before(function (done) {
             chai.passport
                 .use(strategy)
-                .redirect(function(u) {
+                .redirect(function (u) {
                     url = u;
                     done();
                 })
@@ -126,14 +126,14 @@ describe('AppleStrategy', () => {
                 .authenticate();
         });
 
-        it('should be redirected', function() {
+        it('should be redirected', function () {
             expect(url).to.equal(
                 'https://appleid.apple.com/auth/authorize?client_id=CLIENT_ID&response_type=code&response_mode=form_post'
             );
         });
     });
 
-    describe('failure caused by user denying request', function() {
+    describe('failure caused by user denying request', function () {
         const strategy = new AppleStrategy(
             {
                 clientID: 'CLIENT_ID',
@@ -146,21 +146,21 @@ describe('AppleStrategy', () => {
 
         let info;
 
-        before(function(done) {
+        before(function (done) {
             chai.passport
                 .use(strategy)
-                .fail(i => {
+                .fail((i) => {
                     info = i;
                     done();
                 })
-                .req(function(req) {
+                .req(function (req) {
                     req.body = {};
                     req.body.error = 'user_cancelled_authorize';
                 })
                 .authenticate();
         });
 
-        it('should fail with info', function() {
+        it('should fail with info', function () {
             expect(info).to.not.be.undefined;
             expect(info.message).to.equal('User cancelled authorize');
         });
@@ -207,14 +207,14 @@ describe('AppleStrategy', () => {
         describe('with req.body as object', () => {
             let user;
 
-            before(function(done) {
+            before(function (done) {
                 chai.passport
                     .use(strategy)
-                    .success(u => {
+                    .success((u) => {
                         user = u;
                         done();
                     })
-                    .req(function(req) {
+                    .req(function (req) {
                         req.body = {};
                         req.body.user = {
                             name: { firstName: 'John', lastName: 'Appleseed' }
@@ -224,7 +224,7 @@ describe('AppleStrategy', () => {
                     .authenticate();
             });
 
-            it('should retrieve the user', function() {
+            it('should retrieve the user', function () {
                 expect(user.id).to.equal('SUBJECT');
                 expect(user.email).to.equal('user@example.com');
                 expect(user.name.firstName).to.equal('John');
@@ -235,14 +235,14 @@ describe('AppleStrategy', () => {
         describe('with req.body as string', () => {
             let user;
 
-            before(function(done) {
+            before(function (done) {
                 chai.passport
                     .use(strategy)
-                    .success(u => {
+                    .success((u) => {
                         user = u;
                         done();
                     })
-                    .req(function(req) {
+                    .req(function (req) {
                         req.body = {};
                         req.body.user = JSON.stringify({
                             name: { firstName: 'John', lastName: 'Appleseed' }
@@ -252,7 +252,7 @@ describe('AppleStrategy', () => {
                     .authenticate();
             });
 
-            it('should retrieve the user', function() {
+            it('should retrieve the user', function () {
                 expect(user.id).to.equal('SUBJECT');
                 expect(user.email).to.equal('user@example.com');
                 expect(user.name.firstName).to.equal('John');
@@ -261,7 +261,7 @@ describe('AppleStrategy', () => {
         });
     });
 
-    describe('error caused by invalid code sent to token endpoint', function() {
+    describe('error caused by invalid code sent to token endpoint', function () {
         const strategy = new AppleStrategy(
             {
                 clientID: 'CLIENT_ID',
@@ -285,21 +285,21 @@ describe('AppleStrategy', () => {
 
         let err;
 
-        before(function(done) {
+        before(function (done) {
             chai.passport
                 .use(strategy)
-                .error(function(e) {
+                .error(function (e) {
                     err = e;
                     done();
                 })
-                .req(function(req) {
+                .req(function (req) {
                     req.body = {};
                     req.body.code = 'SplxlOBeZQQYbYS6WxSbIA+ALT1';
                 })
                 .authenticate();
         });
 
-        it('should error', function() {
+        it('should error', function () {
             expect(err.constructor.name).to.equal('TokenError');
             expect(err.code).to.equal('invalid_grant');
         });
