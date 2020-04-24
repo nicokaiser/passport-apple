@@ -65,6 +65,43 @@ app.post('/auth/apple/callback',
 
 You can find a complete example at [examples/server.js](examples/server.js).
 
+
+### Nonce Verification
+To supply and verify a nonce to prevent a login session from being replayed, use the verifyNonce option when creating the strategy:
+```
+const generatedNonces = new NodeCache();
+
+passport.use(new AppleStrategy({
+    ...
+    verifyNonce: function(req, nonce, callback){
+        if(generatedNonces.take(nonce)){
+            callback(null, true);
+        }else{
+            callback(new Error('invalid nonce'), false);
+        }
+    },
+  },
+  ...
+);
+```
+And supply a nonce value in the options to each authenticate call:
+```
+app.post('/auth/apple/callback',
+  express.urlencoded(),
+  function(req, res, next){
+      const nonce = crypto.randomBytes(16).toString('hex');
+      generatedNonces.set(nonce, 1);
+      passport.authenticate('apple', { failureRedirect: '/login', nonce: nonce })(req, res, next);
+  },
+  (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+```
+
+For multi-server applications the nonces must be shared between all servers, for example by storing them in a shared cache or database.
+
+
 ## FAQ
 
 #### Which fields are provided in the user profile?
