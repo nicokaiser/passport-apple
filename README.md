@@ -42,6 +42,20 @@ passport.use(new AppleStrategy({
 ));
 ```
 
+If `passReqToCallback` is set to `true`, `req` will be passed as the first argument to the verify callback:
+
+```js
+passport.use(new AppleStrategy({
+    clientID: 'com.example.account', // Services ID
+    ...
+    passReqToCallback: true
+  },
+  (req, accessToken, refreshToken, profile, cb) => {
+    ...
+  }
+));
+```
+
 ### Authenticate Requests
 
 Use `passport.authenticate()`, specifying the `'apple'` strategy, to authenticate requests. The authorization code is passed via the `code` POST parameter, so your endpoint callback needs to support HTTPS POST and provide the `req.body` property.
