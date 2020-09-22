@@ -44,7 +44,13 @@ passport.use(
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
-app.use(session({ secret: 'keyboard cat' }));
+app.use(
+    session({
+        resave: false,
+        saveUninitialized: false,
+        secret: 'keyboard cat'
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,9 +59,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/auth/apple', passport.authenticate('apple'));
-app.post('/auth/apple/callback', express.urlencoded(), passport.authenticate('apple'), (req, res) => {
-    res.json(req.user);
-});
+app.post(
+    '/auth/apple/callback',
+    express.urlencoded({ extended: false }),
+    passport.authenticate('apple'),
+    (req, res) => {
+        res.json(req.user);
+    }
+);
 
 app.use(errorHandler());
 
