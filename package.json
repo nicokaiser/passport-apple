@@ -1,6 +1,6 @@
 {
   "name": "@nicokaiser/passport-apple",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Sign in with Apple strategy for Passport",
   "keywords": [
     "passport",
