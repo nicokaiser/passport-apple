@@ -122,7 +122,7 @@ describe('AppleStrategy', () => {
                     url = u;
                     done();
                 })
-                .req(() => {})
+                .request(() => {})
                 .authenticate();
         });
 
@@ -153,7 +153,7 @@ describe('AppleStrategy', () => {
                     info = i;
                     done();
                 })
-                .req(function (req) {
+                .request(function (req) {
                     req.body = {};
                     req.body.error = 'user_cancelled_authorize';
                 })
@@ -216,7 +216,7 @@ describe('AppleStrategy', () => {
                         user = u;
                         done();
                     })
-                    .req(function (req) {
+                    .request(function (req) {
                         req.body = {};
                         req.body.user = {
                             name: { firstName: 'John', lastName: 'Appleseed' }
@@ -244,7 +244,7 @@ describe('AppleStrategy', () => {
                         user = u;
                         done();
                     })
-                    .req(function (req) {
+                    .request(function (req) {
                         req.body = {};
                         req.body.user = JSON.stringify({
                             name: { firstName: 'John', lastName: 'Appleseed' }
@@ -294,7 +294,7 @@ describe('AppleStrategy', () => {
                     err = e;
                     done();
                 })
-                .req(function (req) {
+                .request(function (req) {
                     req.body = {};
                     req.body.code = 'SplxlOBeZQQYbYS6WxSbIA+ALT1';
                 })
