@@ -1,8 +1,7 @@
 # Sign in with Apple strategy for Passport
 
-[![Build Status](https://travis-ci.org/nicokaiser/passport-apple.svg?branch=master)](https://travis-ci.org/nicokaiser/passport-apple)
-[![NPM version](https://badge.fury.io/js/%40nicokaiser%2Fpassport-apple.svg)](https://www.npmjs.com/package/@nicokaiser/passport-apple)
-[![Dependencies](https://david-dm.org/nicokaiser/passport-apple.svg)](https://david-dm.org/nicokaiser/passport-apple)
+[![ci](https://github.com/nicokaiser/passport-apple/actions/workflows/ci.yml/badge.svg)](https://github.com/nicokaiser/passport-apple/actions/workflows/ci.yml)
+[![NPM version](https://img.shields.io/npm/v/%40nicokaiser%2Fpassport-apple.svg?style=flat)](https://www.npmjs.com/package/@nicokaiser/passport-apple)
 
 [Passport](http://www.passportjs.org/) strategy for authenticating with [Sign in with Apple](https://developer.apple.com/sign-in-with-apple/).
 
@@ -142,6 +141,4 @@ Apple is still working on the interfaces, as Sign in with Apple is still in beta
 
 ## License
 
-[The MIT License](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2019 Nico Kaiser <[https://kaiser.me/](https://kaiser.me/)>
+Licensed under [MIT](./LICENSE).
