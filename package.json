@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "jwks-rsa": "^2.0.5",
+    "jwks-rsa": "^2.1.4",
     "oauth": "^0.9.15",
     "passport-strategy": "^1.0.0",
     "uid2": "1.0.0"
@@ -38,13 +38,13 @@
   "devDependencies": {
     "chai": "^4.3.6",
     "chai-passport-strategy": "^3.0.0",
-    "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.4.0",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.4",
-    "mocha": "^9.2.1",
-    "prettier": "^2.5.1"
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.1",
+    "mocha": "^10.0.0",
+    "prettier": "^2.6.2"
   },
   "lint-staged": {
     "*.js": "eslint"
