@@ -1,3 +1,7 @@
+## 2.0.0 (2022-12-29)
+
+  - BREAKING CHANGE: drop support for Node < 12
+
 ## 1.0.0 (2021-10-12)
 
   - BREAKING CHANGE: update dependencies, drop support for Node < 10
