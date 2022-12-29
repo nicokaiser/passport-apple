@@ -12,6 +12,7 @@
     "apple",
     "appleid"
   ],
+  "files": ["./lib/*"],
   "main": "./lib",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
