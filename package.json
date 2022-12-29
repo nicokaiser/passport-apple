@@ -36,15 +36,15 @@
     "uid2": "1.0.0"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^4.3.7",
     "chai-passport-strategy": "^3.0.0",
-    "eslint": "^8.17.0",
+    "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.1",
-    "mocha": "^10.0.0",
-    "prettier": "^2.6.2"
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.1"
   },
   "lint-staged": {
     "*.js": "eslint"
