@@ -1,4 +1,4 @@
-/* global describe, it, before, xdescribe */
+/* global describe, it, before, after, xdescribe */
 
 const chai = require('chai');
 const chaiPassport = require('chai-passport-strategy');
@@ -99,6 +99,45 @@ describe('AppleStrategy', () => {
                     );
                 }).to.throw(TypeError, 'AppleStrategy requires a key option');
             });
+        });
+    });
+
+    describe('constructed with different clientIDs but times with the same keyID', function () {
+        const strategyA = new AppleStrategy(
+            {
+                clientID: 'CLIENT_ID_A',
+                teamID: 'TEAM_ID',
+                keyID: 'KEY_ID',
+                key: 'KEY'
+            },
+            () => {}
+        );
+
+        const strategyB = new AppleStrategy(
+            {
+                clientID: 'CLIENT_ID_B',
+                teamID: 'TEAM_ID',
+                keyID: 'KEY_ID',
+                key: 'KEY'
+            },
+            () => {}
+        );
+
+        let originalJWTSign;
+
+        before(function () {
+            jwt.sign = function (_body, _key, { keyid, subject }) {
+                return `${subject}-${keyid}`;
+            };
+        });
+
+        after(function () {
+            jwt.sign = originalJWTSign;
+        });
+
+        it('should each use different secrets', function () {
+            expect(strategyA._getClientSecret()).to.equal('CLIENT_ID_A-KEY_ID');
+            expect(strategyB._getClientSecret()).to.equal('CLIENT_ID_B-KEY_ID');
         });
     });
 
