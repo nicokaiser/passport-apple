@@ -30,7 +30,7 @@
     "url": "https://github.com/nicokaiser/passport-apple.git"
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.0",
+    "jsonwebtoken": "^9.0.1",
     "jwks-rsa": "^3.0.1",
     "oauth": "^0.10.0",
     "passport-strategy": "^1.0.0",
