@@ -1,3 +1,7 @@
+## 3.0.0 (2023-07-20)
+
+  - BREAKING CHANGE: drop support for Node < 16
+
 ## 2.0.0 (2022-12-29)
 
   - BREAKING CHANGE: drop support for Node < 12
