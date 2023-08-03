@@ -13,7 +13,7 @@
     "appleid"
   ],
   "files": [
-    "./lib/*"
+    "./lib/**/*"
   ],
   "main": "./lib",
   "scripts": {
