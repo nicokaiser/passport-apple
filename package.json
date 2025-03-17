@@ -34,7 +34,7 @@
   "dependencies": {
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0",
-    "oauth": "^0.10.0",
+    "oauth": "^0.10.2",
     "passport-strategy": "^1.0.0",
     "uid2": "1.0.0"
   },
